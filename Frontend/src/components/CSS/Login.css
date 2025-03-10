@@ -1,0 +1,84 @@
+/* Centers the login box */
+body {
+    display: flex;
+    justify-content: center; /* Centers horizontally */
+    align-items: center; /* Centers vertically */
+    height: 100vh; /* Full viewport height */
+    margin: 0;
+    background-color: #222; /* Dark background */
+}
+
+/* Wrapper to center content */
+.login-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #222; /* Dark background */
+}
+
+/* Enlarged Login Box */
+.login-box {
+    background: white;
+    padding: 40px; /* Increased padding */
+    border-radius: 14px; /* Rounded corners */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+    width: 400px; /* Larger width */
+    text-align: center;
+    align-items: center;
+    box-sizing: border-box; /* Ensures padding doesn't affect width */
+}
+
+/* Bigger Login Title */
+.login-title {
+    font-size: 28px; /* Increased size */
+    font-weight: bold;
+    color: black;
+    margin-bottom: 25px;
+}
+
+/* Labels */
+h2 {
+    font-size: 18px; /* Increased text size */
+    color: black;
+    margin-bottom: 8px;
+    text-align: left;
+}
+
+/* Bigger Input Fields */
+.input-field {
+    width: 95%; /* More width */
+    padding: 14px; /* Increased padding */
+    font-size: 18px; /* Bigger text */
+    margin-bottom: 18px;
+    border: 1px solid #ccc;
+    border-radius: 10px; /* More rounded */
+    background-color: #f9f9f9;
+    color: black;
+    display: block; /* Ensures proper spacing */
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.input-field:focus {
+    border-color: navy;
+    border-width: 3px; /* Thicker focus border */
+    outline: none; /* Removes default browser outline */
+}
+
+/* Bigger Login Button */
+.login-button {
+    width: 100%;
+    padding: 14px; /* Increased padding */
+    font-size: 20px; /* Bigger text */
+    font-weight: bold;
+    color: white;
+    background-color: skyblue;
+    border: none;
+    border-radius: 10px; /* More rounded */
+    cursor: pointer;
+}
+
+.login-button:hover {
+    background-color: darkblue;
+}
