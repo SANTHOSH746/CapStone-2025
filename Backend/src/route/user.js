@@ -1,0 +1,48 @@
+const router = require('express').Router();
+const userModel = require('../schema/userModel');
+
+// Sign-Up
+router.post('/Sign-Up', async (req, res) => {
+    try {
+        const { name, email, password } = req.body;
+        const user = await userModel.findOne({ email: email });
+
+        if (user) {
+            return res.status(400).send("User already exists");
+        }
+
+        const newUser = new userModel({
+            name: name,
+            email: email,
+            password: password
+        });
+
+        await newUser.save();
+        return res.status(201).send("User registered successfully");
+
+    } catch (err) {
+        console.error("Error in user.js Sign-Up", err);
+        return res.status(500).send("Internal Server Error");
+    }
+});
+
+// Login
+router.post("/Login", async (req, res) => {
+    try {
+        const { email, password } = req.body;
+
+        const user = await userModel.findOne({ email: email, password: password });
+
+        if (!user) {
+            return res.status(404).send("User doesn't exist or incorrect credentials");
+        }
+
+        return res.status(200).send("Login successful");
+
+    } catch (err) {
+        console.error("Error in user.js Login", err);
+        return res.status(500).send("Internal Server Error");
+    }
+});
+
+module.exports = router;
