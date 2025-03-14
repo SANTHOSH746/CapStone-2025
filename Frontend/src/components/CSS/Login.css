@@ -1,37 +1,29 @@
-/* Centers the login box */
-body {
+ body {
     display: flex;
-    justify-content: center; /* Centers horizontally */
-    align-items: center; /* Centers vertically */
-    height: 100vh; /* Full viewport height */
+    justify-content: center; 
+    align-items: center; 
     margin: 0;
-    background-color: #222; /* Dark background */
+    background-image: url("../Assets/Background.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
 }
 
-/* Wrapper to center content */
-.login-wrapper {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    background-color: #222; /* Dark background */
-}
-
-/* Enlarged Login Box */
+/* Login Box */
 .login-box {
-    background: white;
-    padding: 40px; /* Increased padding */
-    border-radius: 14px; /* Rounded corners */
+    background-color: white;
+    padding: 40px;
+    border-radius: 30px; /* Adjusted to reduce unwanted background visibility */
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
-    width: 400px; /* Larger width */
+    width: 400px;
     text-align: center;
-    align-items: center;
-    box-sizing: border-box; /* Ensures padding doesn't affect width */
+    box-sizing: border-box;
+    position: relative; /* Ensures proper positioning */
 }
 
-/* Bigger Login Title */
+/* Login Title */
 .login-title {
-    font-size: 28px; /* Increased size */
+    font-size: 28px;
     font-weight: bold;
     color: black;
     margin-bottom: 25px;
@@ -39,46 +31,78 @@ body {
 
 /* Labels */
 h2 {
-    font-size: 18px; /* Increased text size */
+    font-size: 18px;
     color: black;
     margin-bottom: 8px;
     text-align: left;
 }
 
-/* Bigger Input Fields */
+/* Input Fields */
 .input-field {
-    width: 95%; /* More width */
-    padding: 14px; /* Increased padding */
-    font-size: 18px; /* Bigger text */
+    width: 95%;
+    padding: 14px;
+    font-size: 18px;
     margin-bottom: 18px;
     border: 1px solid #ccc;
-    border-radius: 10px; /* More rounded */
+    border-radius: 10px;
     background-color: #f9f9f9;
     color: black;
-    display: block; /* Ensures proper spacing */
+    display: block;
     margin-left: auto;
     margin-right: auto;
 }
 
 .input-field:focus {
     border-color: navy;
-    border-width: 3px; /* Thicker focus border */
-    outline: none; /* Removes default browser outline */
+    border-width: 3px;
+    outline: none;
 }
 
-/* Bigger Login Button */
+/* Login Button */
 .login-button {
     width: 100%;
-    padding: 14px; /* Increased padding */
-    font-size: 20px; /* Bigger text */
+    padding: 14px;
+    font-size: 20px;
     font-weight: bold;
     color: white;
     background-color: skyblue;
     border: none;
-    border-radius: 10px; /* More rounded */
+    border-radius: 10px;
     cursor: pointer;
 }
 
 .login-button:hover {
     background-color: darkblue;
 }
+
+.login-button:active {
+    opacity: 50%;
+}
+
+/* Center the Sign-up link */
+.already {
+    color: black;
+    font-size: 16px;
+    margin-top: 10px;
+    text-align: center;
+}
+
+/* Sign-up Link */
+.log {
+    color: blue;
+    font-weight: bold;
+    font-size: 16px;
+    text-decoration: none;
+    cursor: pointer;
+    margin-left: 5px;
+}
+
+.log:hover {
+    color: darkblue;
+}
+
+.log, h1, h2, .already {
+    background-color: white;
+}
+
+

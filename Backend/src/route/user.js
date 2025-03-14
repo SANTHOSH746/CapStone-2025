@@ -31,16 +31,43 @@ router.post("/Login", async (req, res) => {
     try {
         const { email, password } = req.body;
 
-        const user = await userModel.findOne({ email: email, password: password });
-
+        const user = await userModel.findOne({ email: email });
+    
         if (!user) {
-            return res.status(404).send("User doesn't exist or incorrect credentials");
+            return res.status(404).send("User doesn't exist ");
         }
-
+       if(user.password !== password){
+            return res.status(400).send("User doesn't exist or incorrect credentials");
+        }
+        if(user.email !== email){
+            return res.status(400).send("User doesn't exist or incorrect credentials");
+        }   
         return res.status(200).send("Login successful");
 
     } catch (err) {
         console.error("Error in user.js Login", err);
+        return res.status(500).send("Internal Server Error");
+    }
+});
+
+
+router.delete("/d", async (req, res) => {
+    try {
+        await userModel.deleteMany();
+        return res.status(200).send("Deleted all users");
+    } catch (err) {
+        console.error("Error in user.js delete", err);
+        return res.status(500).send("Internal Server Error");
+    }
+});
+
+
+router.get("/all", async (req, res) => {
+    try {
+        const users = await userModel.find();
+        return res.status(200).send(users);
+    } catch (err) {
+        console.error("Error in user.js get", err);
         return res.status(500).send("Internal Server Error");
     }
 });
