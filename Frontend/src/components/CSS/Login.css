@@ -1,17 +1,20 @@
- body {
+body {
     display: flex;
     justify-content: center; 
     align-items: center; 
     margin: 0;
-    background-image: url("../Assets/Background.jpg");
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
+    background: white !important;  /* Ensuring no background image */
+    width: 100vw;
+    height: 100vh;
+    padding: 0;
+    overflow-x: hidden;
 }
+
 
 /* Login Box */
 .login-box {
     background-color: white;
+    color: black;
     padding: 40px;
     border-radius: 30px; /* Adjusted to reduce unwanted background visibility */
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
@@ -27,6 +30,7 @@
     font-weight: bold;
     color: black;
     margin-bottom: 25px;
+    text-align: center;
 }
 
 /* Labels */

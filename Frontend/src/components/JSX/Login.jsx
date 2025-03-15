@@ -1,7 +1,8 @@
 import React, { useState } from "react";
-import "../CSS/Login.css"; 
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import "../CSS/Login.css"; 
+import backgroundImage from "../Assets/Background.jpg";  // Ensure case matches
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -16,7 +17,6 @@ const Login = () => {
         password: password,
       });
 
-      console.log(response);
       if (response.status === 200) {
         alert("Login Successful");
         navigate("/Home");
@@ -35,33 +35,49 @@ const Login = () => {
   };
 
   return (
-    <div className="login-box">
-      <h1 className="login-title">Login</h1>
-      <h2>Email</h2>
-      <input
-        type="text"
-        placeholder="Enter your email"
-        className="input-field"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-      />
+    <div 
+      className="login-wrapper"
+      style={{
+        backgroundImage: `url(${backgroundImage})`,  // Set background image
+        backgroundSize: 'cover',
+        backgroundRepeat: 'no-repeat',
+        backgroundPosition: 'center',
+        minHeight: '100vh',  // Ensures it covers the entire screen
+        width: '100vw',
+        textAlign: 'center',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+    }} // Set background dynamically
+    >
+      <div className="login-box">
+        <h1 className="login-title">Login</h1>
+        <h2>Email</h2>
+        <input
+          type="text"
+          placeholder="Enter your email"
+          className="input-field"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        />
 
-      <h2>Password</h2>
-      <input
-        type="password"
-        placeholder="Enter your password"
-        className="input-field"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-      />
+        <h2>Password</h2>
+        <input
+          type="password"
+          placeholder="Enter your password"
+          className="input-field"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        />
 
-      <button className="login-button" onClick={handleLogin}>
-        Login
-      </button>
+        <button className="login-button" onClick={handleLogin}>
+          Login
+        </button>
 
-      <div>
-        <div className="already">I don't have an account</div>
-        <div onClick={Sign} className="log">Sign Up</div>
+        <div>
+          <div className="already">I don't have an account</div>
+          <div onClick={Sign} className="log">Sign Up</div>
+        </div>
       </div>
     </div>
   );
