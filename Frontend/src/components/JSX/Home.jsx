@@ -1,6 +1,6 @@
 import React from "react";
-import { FaBell, FaUserCircle, FaPlus, FaClipboardList, FaBox, FaFileInvoice, FaTruck, FaStore } from "react-icons/fa";
-import "../CSS/Home.css"; // Importing the CSS file
+import { FaBell, FaUserCircle, FaPlus, FaClipboardList, FaBox, FaFileInvoice, FaTruck, FaStore, FaExclamationTriangle, FaInfoCircle } from "react-icons/fa";
+import "../CSS/Home.css"; // Importing the updated CSS file
 
 const Dashboard = () => {
   return (
@@ -32,7 +32,7 @@ const Dashboard = () => {
       <main className="main-content">
         {/* Top Header */}
         <header className="top-header">
-          <h2>Huma Medical Store</h2>
+          <h2 className="NAM">Huma Medical Store</h2>
           <div className="user-section">
             <FaBell className="icon" />
             <span className="notification-count">3</span>
@@ -43,8 +43,8 @@ const Dashboard = () => {
         {/* Banner */}
         <section className="banner">
           <div className="banner-content">
-            <h2>Never worry about your Inventory</h2>
-            <button className="bill-btn">Create a Bill</button>
+            <h2 className="T">Never worry about your Inventory</h2>
+            <button className="bill-btn"><FaPlus /> Create a Bill</button>
           </div>
           <img src="https://www.shutterstock.com/image-vector/male-doctor-smiling-happy-face-600nw-2481032615.jpg" alt="Doctors" className="banner-img" />
         </section>
@@ -53,18 +53,18 @@ const Dashboard = () => {
         <section className="stats">
           <div className="stat-card">
             <p>Out of stock products</p>
-            <span className="alert-icon">⚠️</span>
+            <span className="alert-icon"><FaExclamationTriangle /></span>
             <h3>3</h3>
           </div>
           <div className="stat-card">
             <p>Products on low stock</p>
-            <span className="info-icon">ℹ️</span>
+            <span className="info-icon"><FaInfoCircle /></span>  {/* ✅ FIXED ICON */}
             <h3>3</h3>
           </div>
           <div className="stat-card">
             <p>Number of products to be arrived</p>
             <span className="truck-icon">🚚</span>
-            <h3>12</h3>a
+            <h3>12</h3>
           </div>
         </section>
 
