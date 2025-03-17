@@ -1,8 +1,19 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import { FaBell, FaUserCircle, FaPlus, FaClipboardList, FaBox, FaFileInvoice, FaTruck, FaStore, FaExclamationTriangle, FaInfoCircle } from "react-icons/fa";
 import "../CSS/Home.css"; // Importing the updated CSS file
 
 const Dashboard = () => {
+
+  
+  const navigate = useNavigate(); // Hook for navigation
+
+  // Logout Function
+  const handleLogout = () => {
+    localStorage.removeItem("userToken"); // Remove token from local storage
+    navigate("/"); // Redirect to login page
+  };
+
   return (
     <div className="dashboard-container">
       {/* Sidebar */}
@@ -37,6 +48,11 @@ const Dashboard = () => {
             <FaBell className="icon" />
             <span className="notification-count">3</span>
             <FaUserCircle className="icon user-icon" />
+            
+            {/* Logout Button */}
+            <button className="logout-button" onClick={handleLogout}>
+              Logout
+            </button>
           </div>
         </header>
 
@@ -58,7 +74,7 @@ const Dashboard = () => {
           </div>
           <div className="stat-card">
             <p>Products on low stock</p>
-            <span className="info-icon"><FaInfoCircle /></span>  {/* ✅ FIXED ICON */}
+            <span className="info-icon"><FaInfoCircle /></span>
             <h3>3</h3>
           </div>
           <div className="stat-card">

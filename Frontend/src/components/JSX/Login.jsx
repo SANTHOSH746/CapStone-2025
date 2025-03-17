@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import "../CSS/Login.css"; 
-import backgroundImage from "../Assets/Background.jpg";  // Ensure case matches
+import backgroundImage from "../Assets/Background.jpg"; 
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -11,6 +11,12 @@ const Login = () => {
 
   const handleLogin = async (e) => {
     e.preventDefault();
+
+    if (!email || !password) {
+      alert("Please enter both email and password.");
+      return;
+    }
+
     try {
       const response = await axios.post("http://localhost:3000/api/Login", {
         email: email,
@@ -19,6 +25,10 @@ const Login = () => {
 
       if (response.status === 200) {
         alert("Login Successful");
+
+        // Store token in localStorage
+        localStorage.setItem("userToken", response.data.token);
+
         navigate("/Home");
       }
     } catch (err) {
@@ -26,29 +36,26 @@ const Login = () => {
         alert("User doesn't exist or incorrect credentials");
       } else {
         console.error("Error in Login.jsx Login", err);
+        alert("Something went wrong. Try again.");
       }
     }
-  };
-
-  const Sign = () => {
-    navigate("/SignUp");
   };
 
   return (
     <div 
       className="login-wrapper"
       style={{
-        backgroundImage: `url(${backgroundImage})`,  // Set background image
+        backgroundImage: `url(${backgroundImage})`, 
         backgroundSize: 'cover',
         backgroundRepeat: 'no-repeat',
         backgroundPosition: 'center',
-        minHeight: '100vh',  // Ensures it covers the entire screen
+        minHeight: '100vh',
         width: '100vw',
         textAlign: 'center',
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
-    }} // Set background dynamically
+      }} 
     >
       <div className="login-box">
         <h1 className="login-title">Login</h1>
@@ -76,7 +83,7 @@ const Login = () => {
 
         <div>
           <div className="already">I don't have an account</div>
-          <div onClick={Sign} className="log">Sign Up</div>
+          <div onClick={() => navigate("/SignUp")} className="log">Sign Up</div>
         </div>
       </div>
     </div>
