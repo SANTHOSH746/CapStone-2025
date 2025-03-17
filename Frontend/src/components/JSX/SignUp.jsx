@@ -78,7 +78,7 @@ const SignUp = () => {
                 <h2>Create Password</h2>
                 <input 
                     type="password" 
-                    placeholder="Enter your password" 
+                    placeholder="Create your password" 
                     value={password} 
                     className="input-field" 
                     onChange={(e) => setPassword(e.target.value)}
