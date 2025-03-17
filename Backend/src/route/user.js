@@ -32,23 +32,27 @@ router.post("/Login", async (req, res) => {
         const { email, password } = req.body;
 
         const user = await userModel.findOne({ email: email });
-    
+
         if (!user) {
-            return res.status(404).send("User doesn't exist ");
+            return res.status(404).json({ message: "User doesn't exist" });
         }
-       if(user.password !== password){
-            return res.status(400).send("User doesn't exist or incorrect credentials");
+        if (user.password !== password) {
+            return res.status(400).json({ message: "Incorrect credentials" });
         }
-        if(user.email !== email){
-            return res.status(400).send("User doesn't exist or incorrect credentials");
-        }   
-        return res.status(200).send("Login successful");
+
+        // Return user details including the shop name
+        return res.status(200).json({
+            message: "Login successful",
+            shopName: user.name, 
+            email: user.email
+        });
 
     } catch (err) {
         console.error("Error in user.js Login", err);
-        return res.status(500).send("Internal Server Error");
+        return res.status(500).json({ message: "Internal Server Error" });
     }
 });
+
 
 
 router.delete("/d", async (req, res) => {
@@ -71,5 +75,8 @@ router.get("/all", async (req, res) => {
         return res.status(500).send("Internal Server Error");
     }
 });
+
+
+
 
 module.exports = router;

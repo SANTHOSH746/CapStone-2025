@@ -1,6 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { FaBell, FaUserCircle, FaPlus, FaClipboardList, FaBox, FaFileInvoice, FaTruck, FaStore, FaExclamationTriangle, FaInfoCircle } from "react-icons/fa";
+import { FaBell, FaUserCircle, FaPlus, FaBox, FaFileInvoice, FaStore, FaExclamationTriangle, FaInfoCircle, FaHome } from "react-icons/fa";
 import "../CSS/Home.css"; // Importing the updated CSS file
 
 const Dashboard = () => {
@@ -11,26 +11,29 @@ const Dashboard = () => {
   // Logout Function
   const handleLogout = () => {
     localStorage.removeItem("userToken"); // Remove token from local storage
+    localStorage.removeItem("shopName"); // Remove shop name from local storage
     navigate("/"); // Redirect to login page
   };
 
+  const N = localStorage.getItem("shopName")
+
   return (
     <div className="dashboard-container">
-      {/* Sidebar */}
+      {/* Sidebar */} 
       <aside className="sidebar">
         <div className="sidebar-header">
-          <h2>🏥 Medicotary</h2>
+          <h2>🏥 MediVault</h2>
         </div>
         <button className="quick-add-btn">
-          <FaPlus /> Quick Add
+          <FaPlus /> Add Stock
         </button>
         <nav>
           <ul>
-            <li className="active"><FaClipboardList /> Dashboard</li>
-            <li><FaBox /> Products</li>
-            <li><FaFileInvoice /> Billing</li>
-            <li><FaStore /> Vendors</li>
-            <li><FaTruck /> Delivery</li>
+            <li className="active"><FaHome /> Home</li>
+            
+            <li onClick={() => (navigate("/Billing"))}><FaFileInvoice /> Billing</li>
+            <li><FaStore /> Stock</li>
+            <li><FaUserCircle /> Profile</li>
           </ul>
         </nav>
         <div className="faq-section">
@@ -43,11 +46,10 @@ const Dashboard = () => {
       <main className="main-content">
         {/* Top Header */}
         <header className="top-header">
-          <h2 className="NAM">Huma Medical Store</h2>
+          <h2 className="NAM">{N}</h2>
           <div className="user-section">
-            <FaBell className="icon" />
-            <span className="notification-count">3</span>
-            <FaUserCircle className="icon user-icon" />
+            
+            
             
             {/* Logout Button */}
             <button className="logout-button" onClick={handleLogout}>
@@ -59,8 +61,8 @@ const Dashboard = () => {
         {/* Banner */}
         <section className="banner">
           <div className="banner-content">
-            <h2 className="T">Never worry about your Inventory</h2>
-            <button className="bill-btn"><FaPlus /> Create a Bill</button>
+            <h2 className="T">Your Inventory</h2>
+            <button className="bill-btn"><FaPlus /> Create Bill</button>
           </div>
           <img src="https://www.shutterstock.com/image-vector/male-doctor-smiling-happy-face-600nw-2481032615.jpg" alt="Doctors" className="banner-img" />
         </section>
