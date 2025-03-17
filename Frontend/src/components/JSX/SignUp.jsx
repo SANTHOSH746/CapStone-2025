@@ -26,7 +26,10 @@ const SignUp = () => {
 
             if (response.status === 201) {
                 alert("User registered successfully");
+                localStorage.setItem("userToken", response.data.token);
+                localStorage.setItem("shopName", name);
                 navigate("/Home");
+
             } else if (response.status === 404) {
                 alert("User already exists");
             }

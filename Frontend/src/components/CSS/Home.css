@@ -172,12 +172,14 @@ nav ul li:hover {
 }
 
 .bill-btn:hover {
-  background-color: #333;
+  background-color: grey;
   transition: 0.2s;
   transform: matrix(1.1, 0, 0, 1.1, 0, 0);
   box-shadow: 0 2px 4px yellow;
   box-decoration-break: clone;
 }
+
+
 
 .banner-img {
   width: 150px;
@@ -256,4 +258,28 @@ nav ul li:hover {
   color: black;
   text-align: center;
 
+}
+
+.logout-button{
+  background-color: black;
+  color: snow;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+
+.logout-button:hover {
+  background-color: red;
+  transform: scale(1.1);
+}
+
+.logout-button:active {
+  transform: scale(0.95);
 }

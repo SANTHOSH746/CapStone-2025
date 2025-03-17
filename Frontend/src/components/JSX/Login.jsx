@@ -26,8 +26,9 @@ const Login = () => {
       if (response.status === 200) {
         alert("Login Successful");
 
-        // Store token in localStorage
+        // Store token and shop name in localStorage
         localStorage.setItem("userToken", response.data.token);
+        localStorage.setItem("shopName", response.data.shopName); // Save shop name
 
         navigate("/Home");
       }
