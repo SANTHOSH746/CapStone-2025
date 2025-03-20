@@ -1,5 +1,6 @@
 const router = require('express').Router();
 const userModel = require('../schema/userModel');
+const Bill = require("../schema/billModel");
 
 // Sign-Up
 router.post('/Sign-Up', async (req, res) => {
@@ -17,7 +18,15 @@ router.post('/Sign-Up', async (req, res) => {
             password: password
         });
 
+        const newBill = new Bill({
+            userEmail: email,
+            items: []
+        });
+
+        
+        
         await newUser.save();
+        await newBill.save();
         return res.status(201).send("User registered successfully");
 
     } catch (err) {

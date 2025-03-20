@@ -1,9 +1,18 @@
 import { Navigate, Outlet } from "react-router-dom";
+import { useSelector } from "react-redux";
 
-const PrivateRoute = () => {
-  const isAuthenticated = localStorage.getItem("userToken"); // Check login status
+const HomeLogin = () => {
+  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
+  
 
-  return isAuthenticated ? <Navigate to="/Home"/> : <Outlet/>;
+  
+
+  // If user is authenticated and trying to access "/", redirect them to "/Home"
+  if (isAuthenticated) {
+    return <Navigate to="/Home" />;
+  }
+
+  return <Outlet />;
 };
 
-export default PrivateRoute;
+export default HomeLogin;
