@@ -1,25 +1,59 @@
-import React from "react";
+import React, {useState} from "react";
+import axios from "axios"
 import { useNavigate } from "react-router-dom";
 import { FaBell, FaUserCircle, FaPlus, FaBox, FaFileInvoice, FaStore, FaExclamationTriangle, FaInfoCircle, FaHome } from "react-icons/fa";
+import { useDispatch, useSelector } from "react-redux"; // Import Redux hooks
+import { logout } from "../redux/authSlice"; // Import logout action
 import "../CSS/Home.css"; // Importing the updated CSS file
 
 const Dashboard = () => {
+  const navigate = useNavigate(); // Hook for navigation
+  const dispatch = useDispatch(); // Get Redux dispatch function
+  const shopName = useSelector((state) => state.auth.shopName); // Get shop name from Redux store
+  const userEmail = useSelector((state) => state.auth.userEmail);
+
+    const [billData, setBillData] = useState({
+      medicineName: "",
+      date: Date(),
+      customerName: "",
+      quantity: "",
+      mfgDate: "",
+      expDate: "",
+      price: "",
+    });
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const handleChange = (e) => {
+    setBillData({ ...billData, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async () => {
+    try {
+      const response = await axios.put("http://localhost:3000/api-bills/create", {
+        userEmail,
+        items: [billData],
+      });
+
+      
+    } catch (err) {
+      console.log("Error submitting bill:", err);
+    }
+
+    setIsModalOpen(false);
+  };
 
   
-  const navigate = useNavigate(); // Hook for navigation
 
   // Logout Function
   const handleLogout = () => {
-    localStorage.removeItem("userToken"); // Remove token from local storage
-    localStorage.removeItem("shopName"); // Remove shop name from local storage
+    dispatch(logout()); // Dispatch logout action
     navigate("/"); // Redirect to login page
   };
 
-  const N = localStorage.getItem("shopName")
-
   return (
     <div className="dashboard-container">
-      {/* Sidebar */} 
+      {/* Sidebar */}
       <aside className="sidebar">
         <div className="sidebar-header">
           <h2>🏥 MediVault</h2>
@@ -30,10 +64,9 @@ const Dashboard = () => {
         <nav>
           <ul>
             <li className="active"><FaHome /> Home</li>
-            
-            <li onClick={() => (navigate("/Billing"))}><FaFileInvoice /> Billing</li>
-            <li><FaStore /> Stock</li>
-            <li><FaUserCircle /> Profile</li>
+            <li onClick={() => navigate("/Billing")}><FaFileInvoice /> Billing</li>
+            <li onClick={() => navigate("/Stock")}><FaStore /> Stock</li>
+            <li onClick={() => navigate("/Profile")}><FaUserCircle /> Profile</li>
           </ul>
         </nav>
         <div className="faq-section">
@@ -46,11 +79,8 @@ const Dashboard = () => {
       <main className="main-content">
         {/* Top Header */}
         <header className="top-header">
-          <h2 className="NAM">{N}</h2>
+          <h2 className="NAM">{shopName}</h2>
           <div className="user-section">
-            
-            
-            
             {/* Logout Button */}
             <button className="logout-button" onClick={handleLogout}>
               Logout
@@ -62,7 +92,7 @@ const Dashboard = () => {
         <section className="banner">
           <div className="banner-content">
             <h2 className="T">Your Inventory</h2>
-            <button className="bill-btn"><FaPlus /> Create Bill</button>
+            <button className="bill-btn" onClick={() => setIsModalOpen(true)}><FaPlus /> Create Bill</button>
           </div>
           <img src="https://www.shutterstock.com/image-vector/male-doctor-smiling-happy-face-600nw-2481032615.jpg" alt="Doctors" className="banner-img" />
         </section>
@@ -98,6 +128,31 @@ const Dashboard = () => {
           </div>
         </section>
       </main>
+      {/* Create Bill Modal */}
+      {isModalOpen && (
+        <div className="modal-overlay">
+          <div className="modal-content">
+            <h2>Create Bill</h2>
+            <h3>Customer Name</h3>
+            <input type="text" name="customerName" value={billData.customerName} onChange={handleChange} required />
+            <h3>Medicine Name</h3>
+            <input type="text" name="medicineName" value={billData.medicineName} onChange={handleChange} required />
+            <h3>Qty</h3>
+            <input type="number" name="quantity" value={billData.quantity} onChange={handleChange} required />
+            <h3>manufacturing date</h3>
+            <input type="date" name="mfgDate" value={billData.mfgDate} onChange={handleChange} required />
+            <h3>Expery date</h3>
+            <input type="date" name="expDate" value={billData.expDate} onChange={handleChange} required />
+            <h3>Price</h3>
+            <input type="number" name="price" value={billData.price} onChange={handleChange} required />
+
+            <div className="modal-actions">
+              <button onClick={handleSubmit}>Submit</button>  
+              <button onClick={() => setIsModalOpen(false)}>Cancel</button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

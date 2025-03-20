@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import "../CSS/Login.css"; 
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { loginSuccess } from "../redux/authSlice";  // Import Redux action
 import backgroundImage from "../Assets/Background.jpg";
 
 const SignUp = () => {
@@ -9,7 +11,10 @@ const SignUp = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
+    
     const navigate = useNavigate();
+    const dispatch = useDispatch();
+    const auth = useSelector((state) => state.auth); // Get auth state
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -26,10 +31,11 @@ const SignUp = () => {
 
             if (response.status === 201) {
                 alert("User registered successfully");
-                localStorage.setItem("userToken", response.data.token);
-                localStorage.setItem("shopName", name);
+                
+                // Dispatch Redux action instead of localStorage
+                dispatch(loginSuccess({ token: response.data.token, shopName: name , userEmail: response.data.email}));
+                
                 navigate("/Home");
-
             } else if (response.status === 404) {
                 alert("User already exists");
             }
@@ -44,19 +50,19 @@ const SignUp = () => {
 
     return (
         <div 
-              className="login-wrapper"
-              style={{
-                backgroundImage: `url(${backgroundImage})`,  // Set background image
+            className="login-wrapper"
+            style={{
+                backgroundImage: `url(${backgroundImage})`,  
                 backgroundSize: 'cover',
                 backgroundRepeat: 'no-repeat',
                 backgroundPosition: 'center',
-                minHeight: '100vh',  // Ensures it covers the entire screen
+                minHeight: '100vh',  
                 width: '100vw',
                 display: 'flex',
                 justifyContent: 'center',
                 alignItems: 'center',
-            }} // Set background dynamically
-            >
+            }} 
+        >
             <div className="login-box">
                 <h1 className="login-title">Sign Up</h1>
 

@@ -1,9 +1,10 @@
 import { Navigate, Outlet } from "react-router-dom";
+import { useSelector } from "react-redux";
 
-const PrivateRoute = () => {
-  const isAuthenticated = localStorage.getItem("userToken"); // Check login status
+const LoginHome = () => {
+  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
 
   return isAuthenticated ? <Outlet /> : <Navigate to="/" />;
 };
 
-export default PrivateRoute;
+export default LoginHome;

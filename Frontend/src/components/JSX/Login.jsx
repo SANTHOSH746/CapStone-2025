@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { useDispatch } from "react-redux";
+import { loginSuccess } from "../redux/authSlice"; // Import the action
 import "../CSS/Login.css"; 
 import backgroundImage from "../Assets/Background.jpg"; 
 
@@ -8,6 +10,7 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
+  const dispatch = useDispatch(); // Get dispatch function from Redux
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -26,9 +29,8 @@ const Login = () => {
       if (response.status === 200) {
         alert("Login Successful");
 
-        // Store token and shop name in localStorage
-        localStorage.setItem("userToken", response.data.token);
-        localStorage.setItem("shopName", response.data.shopName); // Save shop name
+        // Dispatch login action to Redux store
+        dispatch(loginSuccess({ token: response.data.token, shopName: response.data.shopName, userEmail: response.data.email }));
 
         navigate("/Home");
       }
