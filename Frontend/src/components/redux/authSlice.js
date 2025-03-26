@@ -35,6 +35,14 @@ const authSlice = createSlice({
       localStorage.removeItem("shopName");
       localStorage.removeItem("userEmail");
     },
+    updateShopName: (state, action) => {
+      state.shopName = action.payload.shopName;
+      localStorage.setItem("shopName", action.payload.shopName);
+    },
+    updateEmail: (state, action) => {
+      state.userEmail = action.payload.userEmail;
+      localStorage.setItem("userEmail", action.payload.userEmail)
+    }
   },
 });
 

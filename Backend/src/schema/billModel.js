@@ -5,6 +5,11 @@ const billSchema = new mongoose.Schema({
     type: String,
     required: true
   },
+  Your : {
+    type: Number,
+    require: true,
+    default: 0
+  },
   items: [
     {
       medicineName: {

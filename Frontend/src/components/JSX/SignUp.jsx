@@ -33,10 +33,10 @@ const SignUp = () => {
                 alert("User registered successfully");
                 
                 // Dispatch Redux action instead of localStorage
-                dispatch(loginSuccess({ token: response.data.token, shopName: name , userEmail: response.data.email}));
+                dispatch(loginSuccess({ token: response.data.token, shopName: name , userEmail: email}));
                 
                 navigate("/Home");
-            } else if (response.status === 404) {
+            } else{
                 alert("User already exists");
             }
         } catch (err) {

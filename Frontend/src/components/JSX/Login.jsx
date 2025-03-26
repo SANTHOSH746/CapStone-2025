@@ -33,13 +33,14 @@ const Login = () => {
         dispatch(loginSuccess({ token: response.data.token, shopName: response.data.shopName, userEmail: response.data.email }));
 
         navigate("/Home");
+      
       }
     } catch (err) {
       if (err.response && err.response.status === 400) {
         alert("User doesn't exist or incorrect credentials");
       } else {
         console.error("Error in Login.jsx Login", err);
-        alert("Something went wrong. Try again.");
+        alert("Incorrect credentials")
       }
     }
   };
