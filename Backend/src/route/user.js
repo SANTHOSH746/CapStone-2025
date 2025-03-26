@@ -20,6 +20,7 @@ router.post('/Sign-Up', async (req, res) => {
 
         const newBill = new Bill({
             userEmail: email,
+            Your: 0,
             items: []
         });
 
@@ -84,6 +85,54 @@ router.get("/all", async (req, res) => {
         return res.status(500).send("Internal Server Error");
     }
 });
+
+
+// Update Shop Name
+router.put("/update-shop-name", async (req, res) => {
+    try {
+      const { email, newShopName } = req.body;
+  
+      // Find the user by email and update the shop name
+      const user = await userModel.findOneAndUpdate(
+        { email: email },
+        { name: newShopName },
+        { new: true }
+      );
+  
+      if (!user) {
+        return res.status(404).json({ message: "User not found" });
+      }
+  
+      return res.status(200).json({ message: "Shop name updated successfully" });
+    } catch (err) {
+      console.error("Error updating shop name:", err);
+      return res.status(500).json({ message: "Internal Server Error" });
+    }
+  });
+
+
+  router.put("/update-email", async (req, res) => {
+    try {
+      const { email, newEmail } = req.body;
+  
+      // Find the user by email and update the shop name
+      const user = await userModel.findOneAndUpdate(
+        { email: email },
+        { email: newEmail },
+        { new: true }
+      );
+  
+      if (!user) {
+        return res.status(404).json({ message: "User not found" });
+      }
+  
+      return res.status(200).json({ message: "Email updated successfully" });
+    } catch (err) {
+      console.error("Error updating shop name:", err);
+      return res.status(500).json({ message: "Internal Server Error" });
+    }
+  });
+
 
 
 

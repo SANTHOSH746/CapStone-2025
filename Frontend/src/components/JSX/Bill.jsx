@@ -13,6 +13,7 @@ const Billing = () => {
   const shopName = useSelector((state) => state.auth.shopName);
   const userEmail = useSelector((state) => state.auth.userEmail);
   
+  
 
   const [bills, setBills] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -20,7 +21,7 @@ const Billing = () => {
   const [billData, setBillData] = useState({
     medicineName: "",
     customerName: "",
-    date : new Date().toLocaleDateString(),  // This extracts only the date (YYYY-MM-DD)
+    date : new Date().toLocaleDateString(), 
 
     quantity: "",
     expiryDate: "",
@@ -36,7 +37,7 @@ const Billing = () => {
           const response = await axios.get(`http://localhost:3000/api-bills/all?userEmail=${userEmail}`);
         
           setBills(response.data);
-          console.log(response.data)
+          
         } catch (error) {
           console.error("Error fetching bills:", error);
         }
@@ -83,7 +84,6 @@ const Billing = () => {
     setIsModalOpen(false);
   };
 
-  // Function to delete a specific bill
   const handleDelete = async (billId) => {
     try {
       await axios.delete(`http://localhost:3000/api-bills/delete/${billId}`);
@@ -105,7 +105,6 @@ const Billing = () => {
     }
   };
 
-  // Function to open the View Modal with bill details
   const handleView = (bill) => {
     setSelectedBill(bill);
     // console.log(bill)
@@ -162,7 +161,7 @@ const Billing = () => {
           <tbody>
             {bills.map((bill, index) => (
               <tr key={bill._id}>
-                {console.log(bill)}
+                
                 <td>{index + 1}</td>
                 <td>{bill.date}</td>
                 <td>{bill.customerName}</td>

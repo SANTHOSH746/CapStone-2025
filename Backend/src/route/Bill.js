@@ -6,30 +6,35 @@ const router = express.Router();
 // Route to create a new bill
 router.put("/create", async (req, res) => {
     const { userEmail, items } = req.body;
-
+  
     try {
-        if (!userEmail || !items || items.length === 0) {
-            return res.status(400).json({ message: "Invalid request: Missing required fields" });
-        }
-
-        // Find the bill and update it by appending new items
-        const updatedBill = await Bill.findOneAndUpdate(
-            { userEmail },
-            { $push: { items: { $each: items } } },
-            { new: true }
-        );
-
-        if (!updatedBill) {
-            return res.status(404).json({ message: "No existing bill found for this user" });
-        }
-
-        res.status(200).json({ message: "Items added successfully", bill: updatedBill });
+      if (!userEmail || !items || items.length === 0) {
+        return res.status(400).json({ message: "Invalid request: Missing required fields" });
+      }
+  
+      // Calculate the total income (sum of all item prices)
+      const totalIncome = items.reduce((sum, item) => sum + (item.price || 0), 0);
+  
+      // Find the bill and update it
+      const updatedBill = await Bill.findOneAndUpdate(
+        { userEmail },
+        {
+          $inc: { Your: totalIncome }, // Increment the "Your" field by the total income
+          $push: { items: { $each: items } }, // Add new items to the "items" array
+        },
+        { new: true }
+      );
+  
+      if (!updatedBill) {
+        return res.status(404).json({ message: "No existing bill found for this user" });
+      }
+  
+      res.status(200).json({ message: "Items added successfully", bill: updatedBill });
     } catch (error) {
-        console.error("Error updating bill:", error);
-        res.status(500).json({ message: "Internal Server Error" });
+      console.error("Error updating bill:", error);
+      res.status(500).json({ message: "Internal Server Error" });
     }
-});
-
+  });
 // Route to get all bills for a specific user
 router.get("/all", async (req, res) => {
     const { userEmail } = req.query;
@@ -41,6 +46,23 @@ router.get("/all", async (req, res) => {
         }
 
         return res.status(200).json(bill.items);
+    } catch (err) {
+        console.error("Error in fetching all bills:", err);
+        return res.status(500).json({ message: "Internal Server Error" });
+    }
+});
+
+
+router.get("/all-e", async (req, res) => {
+    const { userEmail } = req.query;
+    try {
+        const bill = await Bill.findOne({ userEmail });
+
+        if (!bill) {
+            return res.status(404).json({ message: "No bills found" });
+        }
+
+        return res.status(200).json(bill.Your);
     } catch (err) {
         console.error("Error in fetching all bills:", err);
         return res.status(500).json({ message: "Internal Server Error" });
@@ -90,5 +112,21 @@ router.delete("/delete-all", async (req, res) => {
         res.status(500).json({ message: "Internal Server Error", error: error.message });
     }
 });
+
+
+router.put("/reset", async(req, res) => {
+    const {userEmail} = req.body;
+    try{
+        const response =await Bill.findOneAndUpdate(
+            {userEmail: userEmail},
+            {Your : 0},
+            {new: true}
+        )
+        res.status(200).json()
+    }catch(err){
+        console.log("Error in bill.jsx in reset")
+        console.log(err)
+    }
+})
 
 module.exports = router;

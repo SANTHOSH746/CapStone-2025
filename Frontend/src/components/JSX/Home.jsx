@@ -14,14 +14,14 @@ const Dashboard = () => {
 
     const [billData, setBillData] = useState({
       medicineName: "",
-      date: Date(),
       customerName: "",
+      date : new Date().toLocaleDateString(),  // This extracts only the date (YYYY-MM-DD)
+  
       quantity: "",
-      mfgDate: "",
-      expDate: "",
+      expiryDate: "",
+      manufacturingDate: "",
       price: "",
     });
-
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleChange = (e) => {
@@ -140,9 +140,9 @@ const Dashboard = () => {
             <h3>Qty</h3>
             <input type="number" name="quantity" value={billData.quantity} onChange={handleChange} required />
             <h3>manufacturing date</h3>
-            <input type="date" name="mfgDate" value={billData.mfgDate} onChange={handleChange} required />
+            <input type="date" name="manufacturingDate" value={billData.manufacturingDate} onChange={handleChange} required />
             <h3>Expery date</h3>
-            <input type="date" name="expDate" value={billData.expDate} onChange={handleChange} required />
+            <input type="date" name="expiryDate" value={billData.expiryDate} onChange={handleChange} required />
             <h3>Price</h3>
             <input type="number" name="price" value={billData.price} onChange={handleChange} required />
 
