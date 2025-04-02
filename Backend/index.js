@@ -3,6 +3,7 @@ const connectDB = require('./src/database/db');
 const router = require('./src/route/user')
 const cors=require('cors');
 const bill = require('./src/route/Bill');
+const stock = require("./src/route/Stock")
 
 require('dotenv').config({path: './src/dotenv/.env'});
 
@@ -11,10 +12,9 @@ app.use(cors());
 app.use(express.json());
 app.use("/api",router);
 app.use("/api-bills", bill);
+app.use("/api-stock",stock)
 
-// app.get('/', (req, res) => {
-//     res.send('Hello World!');
-// })
+
 
 PORT = process.env.PORT
 

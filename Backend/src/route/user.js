@@ -1,6 +1,7 @@
 const router = require('express').Router();
 const userModel = require('../schema/userModel');
 const Bill = require("../schema/billModel");
+const Stock = require("../schema/StockSchema")
 
 // Sign-Up
 router.post('/Sign-Up', async (req, res) => {
@@ -24,10 +25,16 @@ router.post('/Sign-Up', async (req, res) => {
             items: []
         });
 
+        const newStock = new Stock({
+          userEmail : email,
+          stock : []
+        })
+
         
         
         await newUser.save();
         await newBill.save();
+        await newStock.save();
         return res.status(201).send("User registered successfully");
 
     } catch (err) {
