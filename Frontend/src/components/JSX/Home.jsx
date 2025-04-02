@@ -110,8 +110,8 @@ const Dashboard = () => {
             <h3>3</h3>
           </div>
           <div className="stat-card">
-            <p>Number of products to be arrived</p>
-            <span className="truck-icon">🚚</span>
+            <p>Total Number of stocks</p>
+            
             <h3>12</h3>
           </div>
         </section>
